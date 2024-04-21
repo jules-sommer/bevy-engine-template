@@ -1,0 +1,24 @@
+[package]
+name = "bevy-play"
+version = "0.1.0"
+edition = "2021"
+
+[target.x86_64-unknown-linux-gnu]
+linker = "clang"
+rustflags = [
+  "-Clink-arg=-fuse-ld=lld", # Use LLD Linker
+  "-Zshare-generics=y",      # (Nightly) Make the current crate share its generic instantiations
+  "-Zthreads=0",             # (Nightly) Use improved multithreading with the recommended amount of threads.
+]
+
+[workspace]
+resolver = "2"
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3
+
+[dependencies]
+bevy = "0.13.2"
